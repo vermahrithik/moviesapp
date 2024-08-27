@@ -17,21 +17,21 @@ class MovieDetailModel {
   String? tagline;
 
   MovieDetailModel({
-    required this.adult,
-    required this.backdrop_path,
-    required this.budget,
-    required this.genres,
-    required this.homepage,
-    required this.id,
-    required this.title,
-    required this.overview,
-    required this.popularity,
-    required this.poster_path,
-    required this.production_companies,
-    required this.release_date,
-    required this.revenue,
-    required this.status,
-    required this.tagline,
+    this.adult,
+    this.backdrop_path,
+    this.budget,
+    this.genres,
+    this.homepage,
+    this.id,
+    this.title,
+    this.overview,
+    this.popularity,
+    this.poster_path,
+    this.production_companies,
+    this.release_date,
+    this.revenue,
+    this.status,
+    this.tagline,
 
   });
 

@@ -21,6 +21,7 @@ dependencies:
   dio: ^5.6.0
   url_strategy: ^0.3.0
   get: ^4.6.6
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:

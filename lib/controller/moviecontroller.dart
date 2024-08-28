@@ -6,24 +6,93 @@ import 'package:get/get.dart';
 import 'package:moviesapp/model/moviedetailmodel.dart';
 import 'package:moviesapp/model/moviemodel.dart';
 
+enum Status {success, loading, failed, networkError}
+
 class MovieController extends GetxController {
-  List<MovieModel> movies = <MovieModel>[].obs;
+  List<MovieModel> visibleData = <MovieModel>[].obs;
+  var isLoading = false.obs;
+  final pageSize = 5;
+  var page = 1;
+
+
+  final allMoviesPage = 1.obs;
+  final areMoreMoviesAvailable = true.obs;
+  final moviesStatus = Status.success.obs;
+  final movies = <MovieModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  // void clearVariables (){
+  //   allMoviesPage = 1;
+  //
+  // }
 
   Future<void> apiCall() async {
-    try {
-      final dio = Dio();
-      final response = await dio.get(
-        'https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=7a3bd5d5f83da1324e1bfdf75f2a665c',
-      );
-      debugPrint(response.data.toString());
-      // movies = response.data['results'];
-      movies.assignAll(response.data['results'].map<MovieModel>((movie)=> MovieModel.fromJson(movie)).toList());
-      debugPrint(movies.toString());
-    } catch (e) {
-      debugPrint("Error in calling api :: $e");
+    // isLoading.value = true;
+
+    allMoviesPage.value == 1 ? moviesStatus.value = Status.loading : moviesStatus.value = Status.success;
+
+    if(areMoreMoviesAvailable.value){
+      try {
+        final dio = Dio();
+
+        debugPrint("Api is calling with : Page : ${allMoviesPage.value}");
+
+        final response = await dio.get(
+          'https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=7a3bd5d5f83da1324e1bfdf75f2a665c&page=$allMoviesPage',
+        );
+        debugPrint(response.statusCode.toString());
+
+        if(response.statusCode == 200){
+          moviesStatus.value = Status.success;
+
+          areMoreMoviesAvailable.value = response.data['results'].length == 20;
+
+          if(allMoviesPage.value == 1){
+            movies.value = response.data['results'].map<MovieModel>((movie)=> MovieModel.fromJson(movie)).toList();
+          }else{
+            debugPrint("In page WITH CONDITION : ${allMoviesPage.value}");
+            movies.addAll(response.data['results'].map<MovieModel>((movie)=> MovieModel.fromJson(movie)).toList());
+          }
+
+          // movies.addAll();
+          // movies = response.data['results'];
+          // movies.assignAll;
+          allMoviesPage.value++;
+          // debugPrint(movies.toString());
+          // loadMoreData();
+          update();
+        }
+
+
+
+
+      } catch (e) {
+        debugPrint("Error in calling api :: $e");
+        moviesStatus.value== Status.failed;
+      }
+    }else{
+      debugPrint("Are more not available movies");
     }
-    debugPrint(movies.toString());
+
+
+
+    // debugPrint(movies.toString());
   }
+
+  // void loadMoreData() {
+  //   if ((page * pageSize) < movies.length) {
+  //     var nextPageData = movies.sublist((page - 1) * pageSize, page * pageSize);
+  //     visibleData.addAll(nextPageData);
+  //     page++;
+  //   } else {
+  //     var remainingData = movies.sublist((page - 1) * pageSize);
+  //     visibleData.addAll(remainingData);
+  //   }
+  // }
 
   String _x = "Hrithik";
   String get x => _x;
@@ -32,11 +101,7 @@ class MovieController extends GetxController {
     _x = name;
     update();
   }
-  @override
-  void onInit() {
-    super.onInit();
-    apiCall();
-  }
+
   // @override
   // void onReady() {
   //   super.onReady();

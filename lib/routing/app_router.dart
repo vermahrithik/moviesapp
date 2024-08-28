@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moviesapp/datapage.dart';
@@ -18,16 +15,16 @@ class MyAppRouter{
   static final GoRouter router = GoRouter(
       initialLocation: '/',
       redirect: (context, state) async {
+        debugPrint("Path  :${state.uri}");
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         if(sharedPreferences.getBool('isLoggedIn')==true){
-          // context.goNamed(MyAppRouteConstants.dataRouteName);
-          debugPrint('redirecting to DataPage');
-          return '/datapage';
+          if(state.uri.toString().contains('/login')){
+            return '/datapage';
+          }
         }else{
-          // FirebaseAuth.instance.signOut();
-          debugPrint('redirecting to LoginPage');
           return '/login';
         }
+        return null;
       },
       debugLogDiagnostics: true,
       errorPageBuilder: (context,state){
@@ -93,37 +90,6 @@ class MyAppRouter{
             // final List<dynamic> data = jsonDecode(dataString);
             return const MaterialPage(child: MainPage());
           },
-          // routes: [
-          //   GoRoute(
-          //     path: '/mainpage/:idString',
-          //     name: MyAppRouteConstants.detailsRouteName,
-          //     pageBuilder: (context,state){
-          //       debugPrint('config page : DetailsPage');
-          //       final String idString = state.pathParameters['id'] ?? '[]';
-          //       return MaterialPage(child: DetailsPage(id: idString,));
-          //     },
-          //   ),
-          // ]
-          /// ---------------------------------------
-          // routes: [
-          //   GoRoute(
-          //     path: '/mainpage/details',
-          //     name: MyAppRouteConstants.detailsRouteName,
-          //     pageBuilder: (context,state){
-          //       debugPrint('config page : DetailsPage');
-          //       return const MaterialPage(child: DetailsPage());
-          //     },
-          //   ),
-          //   // GoRoute(
-          //   //   path: '/mainpage/:id',
-          //   //   name: MyAppRouteConstants.detailsRouteName,
-          //   //   pageBuilder: (context,state){
-          //   //     debugPrint('config page : DetailsPage');
-          //   //     final String idString = state.pathParameters['id'] ?? '[]';
-          //   //     return MaterialPage(child: DetailsPage(id: idString));
-          //   //   },
-          //   // )
-          // ]
         ),
         GoRoute(
           path: '/details/:id',
@@ -135,22 +101,21 @@ class MyAppRouter{
           },
         ),
       ],
-      // errorPageBuilder: (context,state){
-      //   return const MaterialPage(child: ErrorPage());
-      // },
   );
 
   GoRouter getRouter(BuildContext context){
     return GoRouter(
       initialLocation: '/',
       redirect: (context, state) async {
+        debugPrint("Path In here  :${state.path}");
+
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         if(sharedPreferences.getBool('isLoggedIn')==true){
-          // context.goNamed(MyAppRouteConstants.dataRouteName);
-          return '/datapage';
+          debugPrint("Path  :${state.path}");
         }else{
           return null;
         }
+        return null;
       },
       debugLogDiagnostics: true,
       errorPageBuilder: (context,state){
@@ -216,37 +181,6 @@ class MyAppRouter{
             // final List<dynamic> data = jsonDecode(dataString);
             return const MaterialPage(child: MainPage());
           },
-          // routes: [
-          //   GoRoute(
-          //     path: '/mainpage/:idString',
-          //     name: MyAppRouteConstants.detailsRouteName,
-          //     pageBuilder: (context,state){
-          //       debugPrint('config page : DetailsPage');
-          //       final String idString = state.pathParameters['id'] ?? '[]';
-          //       return MaterialPage(child: DetailsPage(id: idString,));
-          //     },
-          //   ),
-          // ]
-          /// ---------------------------------------
-          // routes: [
-          //   GoRoute(
-          //     path: '/mainpage/details',
-          //     name: MyAppRouteConstants.detailsRouteName,
-          //     pageBuilder: (context,state){
-          //       debugPrint('config page : DetailsPage');
-          //       return const MaterialPage(child: DetailsPage());
-          //     },
-          //   ),
-          //   // GoRoute(
-          //   //   path: '/mainpage/:id',
-          //   //   name: MyAppRouteConstants.detailsRouteName,
-          //   //   pageBuilder: (context,state){
-          //   //     debugPrint('config page : DetailsPage');
-          //   //     final String idString = state.pathParameters['id'] ?? '[]';
-          //   //     return MaterialPage(child: DetailsPage(id: idString));
-          //   //   },
-          //   // )
-          // ]
         ),
         GoRoute(
           path: '/details/:id',

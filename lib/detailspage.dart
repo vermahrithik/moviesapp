@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:moviesapp/controller/moviecontroller.dart';
 import 'package:get/get.dart';
 import 'package:moviesapp/model/moviedetailmodel.dart';
+
 class DetailsPage extends StatefulWidget {
-  // Get.put(MovieDetailsController());
   final String id;
-  // final MovieDetailsController movieDetailsController = Get.put(MovieDetailsController(id: id));
   late final MovieDetailsController movieDetailsController;
   DetailsPage({super.key,required this.id}){
     movieDetailsController = Get.put(MovieDetailsController(id: id));
@@ -24,8 +23,6 @@ class _DetailsPageState extends State<DetailsPage> {
     controoler.movieDetails= MovieDetailModel();
     debugPrint("Print id : ${widget.id}");
     controoler.apiDetailCall(widget.id);
-    // movieDetailsController.apiDetailCall(id);
-    // final String movieDets = '${widget.movieDetailsController.movieDetails[0].id}';
   }
 
   // const DetailsPage({super.key});
@@ -36,7 +33,7 @@ class _DetailsPageState extends State<DetailsPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -60,7 +57,7 @@ class _DetailsPageState extends State<DetailsPage> {
         return controller.movieDetails.backdrop_path != null ?
         Container(
           decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500${controoler.movieDetails.backdrop_path}'),fit: BoxFit.cover)
+            image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500${controoler.movieDetails.backdrop_path}'),fit: BoxFit.cover)
           ),
           child: Center(
               child:
@@ -78,7 +75,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     MainAxisAlignment.center,
                     children: [
                       // SizedBox(height: 20),
-                      Container(height: 250,width: 250,child: ClipRRect(borderRadius: BorderRadius.circular(8),child: Image.network('https://image.tmdb.org/t/p/w500/${controoler.movieDetails.backdrop_path}',fit: BoxFit.cover,))),
+                      SizedBox(height: 250,child: ClipRRect(borderRadius: BorderRadius.circular(8),child: Image.network('https://image.tmdb.org/t/p/w500/${controoler.movieDetails.poster_path}',fit: BoxFit.cover,))),
                       // const SizedBox(width: 8,),
                       RichText(
                         text: TextSpan(

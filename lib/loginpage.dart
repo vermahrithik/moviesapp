@@ -1,6 +1,3 @@
-import 'dart:js_interop';
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moviesapp/routing/app_route_constants.dart';

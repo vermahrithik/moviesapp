@@ -21,6 +21,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
+    controoler.movieDetails= MovieDetailModel();
     debugPrint("Print id : ${widget.id}");
     controoler.apiDetailCall(widget.id);
     // movieDetailsController.apiDetailCall(id);
@@ -32,9 +33,16 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: const Color(0xffE9E3DB),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[Colors.black, Colors.transparent]),
+          ),
+        ),
         title: const Text(
           'FILMFLIX',
           style: TextStyle(
@@ -44,48 +52,247 @@ class _DetailsPageState extends State<DetailsPage> {
               color: Color(0xffE50914)),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xffE9E3DB).withAlpha(1000),
+        backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         bottomOpacity: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: GetBuilder<MovieDetailsController>(builder: (controller) {
-          return controller.movieDetails.backdrop_path != null ?
-          Center(
+      body: GetBuilder<MovieDetailsController>(builder: (controller) {
+        return controller.movieDetails.backdrop_path != null ?
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500${controoler.movieDetails.backdrop_path}'),fit: BoxFit.cover)
+          ),
+          child: Center(
               child:
-              Text(
-                "Path : ${controller.movieDetails.backdrop_path}",
-                style: TextStyle(
-                    color: Colors.black
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Colors.black.withOpacity(0.7),
                 ),
-              )
-          ) : Text(
-            "NO PATh",
-            style: TextStyle(
-                color: Colors.black
-            ),
-          );
-        },),
-        // child: Obx(() {
-        //   if(movieDets.isBlank!){
-        //     return Center(child: Text('no details found',style: TextStyle(color: Colors.grey,fontSize: 28,fontFamily: 'roboto'),));
-        //   }else{
-        //     return Container(
-        //       decoration: BoxDecoration(
-        //         borderRadius: BorderRadius.circular(4),
-        //         color: Color(0xffDFD3C4),
-        //       ),
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           Container(height: 50,width: 50,child: ClipRRect(borderRadius: BorderRadius.circular(8),child: Image.network('https://image.tmdb.org/t/p/w500/${movieDets}',fit: BoxFit.cover,)))
-        //         ],
-        //       ),
-        //     );
-        //   }
-        // }),
-      ),
+                height: double.maxFinite,
+                width: double.maxFinite,
+                child: Column(
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
+                    children: [
+                      // SizedBox(height: 20),
+                      Container(height: 250,width: 250,child: ClipRRect(borderRadius: BorderRadius.circular(8),child: Image.network('https://image.tmdb.org/t/p/w500/${controoler.movieDetails.backdrop_path}',fit: BoxFit.cover,))),
+                      // const SizedBox(width: 8,),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Title : ',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment
+                                  .baseline,
+                              baseline:
+                              TextBaseline.alphabetic,
+                              child: Text(
+                                '${controoler.movieDetails.title}',
+                                style: const TextStyle(
+                                  fontFamily: 'cinzel',
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xffE9E3DB),
+                                  fontSize: 20,
+                                ),
+                                overflow:
+                                TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),],
+                        ),
+                      ),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Overview :',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                                alignment: PlaceholderAlignment.baseline,
+                                baseline: TextBaseline.alphabetic,
+                                child: Text(
+                                  '${controoler.movieDetails.overview}',
+                                  style: const TextStyle(
+                                      fontFamily: 'roboto',
+                                      letterSpacing: 2,
+                                      fontWeight:
+                                      FontWeight.w700,
+                                      color:
+                                      Color(0xffE9E3DB),
+                                      fontSize: 10),
+                                  overflow:
+                                  TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Revenue : ',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment
+                                  .baseline,
+                              baseline:
+                              TextBaseline.alphabetic,
+                              child: Text(
+                                  '${controoler.movieDetails.revenue}',
+                                  style: const TextStyle(
+                                    fontFamily: 'digital',
+                                    letterSpacing: 2,
+                                    fontSize: 16,
+                                    fontWeight:
+                                    FontWeight.w700,
+                                    color: Color(0xffE9E3DB),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Popularity : ',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment
+                                  .baseline,
+                              baseline:
+                              TextBaseline.alphabetic,
+                              child: Text(
+                                  '${controoler.movieDetails.popularity}',
+                                  style: TextStyle(
+                                    fontFamily: 'digital',
+                                    letterSpacing: 2,
+                                    fontSize: 16,
+                                    fontWeight:
+                                    FontWeight.w700,
+                                    color: double.parse(controoler.movieDetails.popularity
+                                        .toString()) >
+                                        100
+                                        ? const Color(
+                                        0xff2B9C47)
+                                        : const Color(
+                                        0xffCF4037),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Adult :',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                                alignment: PlaceholderAlignment.baseline,
+                                baseline: TextBaseline.alphabetic,
+                                child: Text(
+                                  '${controoler.movieDetails.adult}',
+                                  style: const TextStyle(
+                                      fontFamily: 'roboto',
+                                      letterSpacing: 2,
+                                      fontWeight:
+                                      FontWeight.w700,
+                                      color:
+                                      Color(0xffE9E3DB),
+                                      fontSize: 10),
+                                  overflow:
+                                  TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Genres :',
+                              style: TextStyle(
+                                  fontFamily: 'roboto',
+                                  color: Color(0xffE9E3DB),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  letterSpacing: 2),
+                            ),
+                            WidgetSpan(
+                                alignment: PlaceholderAlignment.baseline,
+                                baseline: TextBaseline.alphabetic,
+                                child: Text(
+                                  '${controoler.movieDetails.genres?.map((element)=>element['name'])}',
+                                  style: const TextStyle(
+                                      fontFamily: 'roboto',
+                                      letterSpacing: 2,
+                                      fontWeight:
+                                      FontWeight.w700,
+                                      color:
+                                      Color(0xffE9E3DB),
+                                      fontSize: 10),
+                                  overflow:
+                                  TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                )
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]),
+              ),
+          ),
+        ) : const Text(
+          "NO PATh",
+          style: TextStyle(
+              color: Colors.black
+          ),
+        );
+      },),
     );
   }
 }

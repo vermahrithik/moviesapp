@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moviesapp/controller/moviecontroller.dart';
 // import 'package:moviesapp/model/moviemodel.dart';
 import 'package:moviesapp/routing/app_route_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DataPage extends StatelessWidget {
   // final List<dynamic> data;
@@ -24,6 +26,13 @@ class DataPage extends StatelessWidget {
               fontSize: 22,
               color: Color(0xffE50914)),
         ),
+        actions: [
+          IconButton.outlined(onPressed: (){
+            FirebaseAuth.instance.signOut();
+            SharedPreferences.getInstance().then((value) => value.setBool('isLoggedIn',false ),);
+            context.goNamed(MyAppRouteConstants.loginRouteName);
+          }, icon: Icon(Icons.logout))
+        ],
         centerTitle: true,
         backgroundColor: const Color(0xffE9E3DB).withAlpha(1000),
         automaticallyImplyLeading: false,

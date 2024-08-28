@@ -1,9 +1,13 @@
+import 'dart:js_interop';
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:go_router/go_router.dart';
+import 'package:moviesapp/routing/app_route_constants.dart';
 import 'package:moviesapp/signuppage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,7 +24,12 @@ class _LoginPageState extends State<LoginPage> {
   Future signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
-        password: passwordController.text.trim());
+        password: passwordController.text.trim()).then((value) {
+          if(value.user?.uid!=null){
+            SharedPreferences.getInstance().then((value) => value.setBool('isLoggedIn', true),);
+            context.goNamed(MyAppRouteConstants.dataRouteName);
+          }
+        },);
   }
 
   @override
@@ -29,26 +38,6 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
     super.dispose();
   }
-
-  // void _showDialog() {
-  //   showDialog<void>(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: const Text('title'),
-  //         content: const Text('dialogBody'),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('buttonText'),
-  //             onPressed: () {
-  //               // Navigator.of(dialogContext).pop(); // Dismiss alert dialog
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

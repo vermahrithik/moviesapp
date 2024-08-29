@@ -60,15 +60,6 @@ class MovieController extends GetxController {
 
     // debugPrint(movies.toString());
   }
-
-  String _x = "Hrithik";
-  String get x => _x;
-
-  set x(String name) {
-    _x = name;
-    update();
-  }
-
 }
 
 class MovieDetailsController extends GetxController {

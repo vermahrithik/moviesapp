@@ -35,7 +35,6 @@ class MyAppRouter{
         GoRoute(
           name: MyAppRouteConstants.splashScreenRouteName,
           path: '/',
-          // builder: (context,state){ return Home();},
           pageBuilder: (context,state){
             debugPrint('config page : SplashScreen');
             return const MaterialPage(child: SplashScreen()); },
@@ -44,7 +43,6 @@ class MyAppRouter{
         GoRoute(
           name: MyAppRouteConstants.loginRouteName,
           path: '/login',
-          // builder: (context,state){ return Home();},
           pageBuilder: (context,state){
             debugPrint('config page : LoginPage');
             return const MaterialPage(child: LoginPage()); },
@@ -53,7 +51,6 @@ class MyAppRouter{
         GoRoute(
           name: MyAppRouteConstants.signUpRouteName,
           path: '/signup',
-          // builder: (context,state){ return Home();},
           pageBuilder: (context,state){
             debugPrint('config page : SignUpPage');
             return const MaterialPage(child: SignUpPage()); },
@@ -62,7 +59,6 @@ class MyAppRouter{
         GoRoute(
           name: MyAppRouteConstants.homeRouteName,
           path: '/home',
-          // builder: (context,state){ return Home();},
           pageBuilder: (context,state){
             debugPrint('config page : HomePage');
             return const MaterialPage(child: HomePage()); },
@@ -71,11 +67,8 @@ class MyAppRouter{
         GoRoute(
           name: MyAppRouteConstants.dataRouteName,
           path: '/datapage',
-          // builder: (context,state){ return Home();},
           pageBuilder: (context,state){
             debugPrint('config page : DataPage');
-            // final String dataString = state.pathParameters['data'] ?? '[]';
-            // final List<dynamic> data = jsonDecode(dataString);
             return MaterialPage(child: DataPage());
           },
         ),

@@ -32,15 +32,12 @@ class _DataPageState extends State<DataPage> {
 
   }
 
-  // apiCall();
-
   void initialCall(){
     movieController.allMoviesPage.value = 1;
     movieController.areMoreMoviesAvailable.value = true;
     movieController.moviesStatus.value = Status.success;
     movieController.apiCall();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +67,7 @@ class _DataPageState extends State<DataPage> {
             width: 40,
             child: IconButton.filled(onPressed: (){
               FirebaseAuth.instance.signOut();
-              SharedPreferences.getInstance().then((value) => value.setBool('isLoggedIn',false ),);
+              SharedPreferences.getInstance().then((value) => value.setBool('isLoggedIn',false),);
               context.goNamed(MyAppRouteConstants.loginRouteName);
             }, padding: const EdgeInsets.all(0),focusColor: Colors.transparent,highlightColor: Colors.transparent,hoverColor: Colors.transparent,style: IconButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),backgroundColor: Colors.transparent),icon: const Icon(Icons.logout),color: Colors.white,),
           ),

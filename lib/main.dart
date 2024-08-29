@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moviesapp/controller/moviecontroller.dart';
 import 'package:moviesapp/routing/app_router.dart';
-// import 'package:moviesapp/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:moviesapp/firebase_options.dart';

@@ -48,9 +48,12 @@ class _DataPageState extends State<DataPage> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: <Color>[Colors.black, Colors.transparent]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Colors.black, Colors.transparent
+              ]
+            ),
           ),
         ),
         title: const Text(

@@ -4,11 +4,13 @@ import 'package:moviesapp/datapage.dart';
 import 'package:moviesapp/detailspage.dart';
 import 'package:moviesapp/errorpage.dart';
 import 'package:moviesapp/homepage.dart';
+import 'package:moviesapp/login_with_phone.dart';
 import 'package:moviesapp/loginpage.dart';
 import 'package:moviesapp/mainpage.dart';
 import 'package:moviesapp/routing/app_route_constants.dart';
 import 'package:moviesapp/signuppage.dart';
 import 'package:moviesapp/splash_screen.dart';
+import 'package:moviesapp/verify_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyAppRouter{
@@ -21,7 +23,11 @@ class MyAppRouter{
           if(state.uri.toString().contains('/login')){
             return '/datapage';
           }
-        }else{
+        }
+        // else if(state.uri.toString().contains('/loginwithphone')){
+        //   return '/loginwithphone';
+        // }
+        else{
           return '/login';
         }
         return null;
@@ -93,6 +99,23 @@ class MyAppRouter{
             return MaterialPage(child: DetailsPage(id: idString));
           },
         ),
+        // GoRoute(
+        //   path: '/loginwithphone',
+        //   name: MyAppRouteConstants.phoneRouteName,
+        //   pageBuilder: (context,state){
+        //     debugPrint('config page : LoginWithPhone');
+        //     return MaterialPage(child: LoginWithPhone());
+        //   },
+        // ),
+        // GoRoute(
+        //   path: '/verifyphone',
+        //   name: MyAppRouteConstants.verifyRouteName,
+        //   pageBuilder: (context,state){
+        //     debugPrint('config page : VerifyPhone');
+        //     final Object verificationId = state.pathParameters['verificationId']??0;
+        //     return MaterialPage(child: VerifyCodeScreen(verificationId: verificationId,));
+        //   },
+        // ),
       ],
   );
 

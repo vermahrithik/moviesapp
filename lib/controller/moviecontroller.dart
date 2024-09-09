@@ -14,10 +14,6 @@ class MovieController extends GetxController {
   final moviesStatus = Status.success.obs;
   final movies = <MovieModel>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   Future<void> apiCall() async {
 
@@ -40,14 +36,9 @@ class MovieController extends GetxController {
             debugPrint("In page WITH CONDITION : ${allMoviesPage.value}");
             movies.addAll(response.data['results'].map<MovieModel>((movie)=> MovieModel.fromJson(movie)).toList());
           }
-
           allMoviesPage.value++;
           update();
         }
-
-
-
-
       } catch (e) {
         debugPrint("Error in calling api :: $e");
         moviesStatus.value== Status.failed;

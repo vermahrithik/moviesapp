@@ -336,7 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     GestureDetector(
                         onTap: () {
@@ -364,8 +364,31 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         )),
                     const SizedBox(
-                      height: 28,
+                      height: 20,
                     ),
+                    // InkWell(
+                    //   onTap: (){
+                    //     context.goNamed(MyAppRouteConstants.phoneRouteName);
+                    //   },
+                    //   child: Container(
+                    //     height: 40,
+                    //     width: 140,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(50),
+                    //       border: Border.all(
+                    //         color: Colors.white
+                    //       ),
+                    //     ),
+                    //     child: const Center(
+                    //       child: Text(
+                    //         'login with phone',
+                    //         style: TextStyle(
+                    //           color: Colors.white
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ],
